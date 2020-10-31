@@ -5,32 +5,39 @@ namespace CabInvoiceGeneratorTest
 {
     public class Tests
     {
-        InvoiceGenerator invoiceGenerator = null;
         [SetUp]
         public void Setup()
         {
         }
 
         [Test]
-        public void GivenDistanceAndTimeShouldReturnTotalFare()
+        public void GivenDistanceAndTime_CalculateFareMethodShould_ReturnTotalFare()
         {
-            invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
-            double distance = 2.0;
-            int time = 5;
-            double fare = invoiceGenerator.CalculateFare(distance, time);
-            double expected = 25;
-            Assert.AreEqual(expected, fare);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            double distance = 20;
+            int time = 45;
+
+            // Calculating fare by passing the values of distance = 20km and time = 45 minutes
+            double actualFare = invoiceGenerator.CalculateFare(distance, time);
+            double expectedFare = 245;
+
+            // Checking if the test case passes
+            Assert.AreEqual(expectedFare, actualFare);
         }
 
         [Test]
-        public void GivenMultipleRideShouldReturnInvoiceSummary()
+        public void GivenDistanceAndTime_CalculateFareMethodShould_ReturnMinimumFare()
         {
-            invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
-            Ride[] rides = { new Ride(2.0, 5), new Ride(2.0, 5) };
-            InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
-            InvoiceSummary expectedSummary = new InvoiceSummary(2, 50.0);
-            //expectedSummary.Equals(summary);
-            Assert.AreEqual(expectedSummary, summary);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            double distance = 0.2;
+            int time = 2;
+
+            // Calculating fare by passing the values of distance = 0.2km (200 m) and time = 2 minutes
+            double actualFare = invoiceGenerator.CalculateFare(distance, time);
+            double expectedFare = 5;
+
+            // Checking if the test case passes
+            Assert.AreEqual(expectedFare, actualFare);
         }
     }
 }
